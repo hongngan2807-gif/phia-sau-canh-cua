@@ -71,9 +71,9 @@ if 'caught_by_ghost' not in st.session_state:
 st.title("🕯️ PHÍA SAU CÁNH CỬA 🕯️")
 st.caption("✍️ Tác giả: Quốc Cường, Nguyệt Hồng và Hà My | Trò chơi dành cho trẻ em trên 12 tuổi")
 
-# --- TRÌNH PHÁT NHẠC NỀN TRỰC QUAN (GIÚP KHÔNG BỊ TRÌNH DUYỆT CHẶN) ---
+# --- TRÌNH PHÁT NHẠC NỀN TRỰC QUAN (LINK MỚI ỔN ĐỊNH) ---
 st.markdown("🔊 **Bật nhạc nền kinh dị để tăng trải nghiệm rùng rợn:**")
-st.audio("https://actions.google.com/sounds/v1/ambiences/creepy_wind.ogg", format="audio/ogg", autoplay=True)
+st.audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c7a73167.mp3?filename=horror-background-atmosphere-156462.mp3", format="audio/mp3")
 
 st.divider()
 
@@ -133,7 +133,7 @@ else:
     # --- KẾT QUẢ THUA CUỘC ---
     if st.session_state.game_over:
         # Phát âm thanh tiếng cười kinh dị khi thua
-        st.audio("https://actions.google.com/sounds/v1/creatures/evil_laugh.ogg", format="audio/ogg", autoplay=True)
+        st.audio("https://cdn.pixabay.com/download/audio/2021/08/04/audio_12d46e34c2.mp3?filename=evil-laugh-81143.mp3", format="audio/mp3")
 
         st.error("💀 THUA CUỘC! BẠN ĐÃ BỊ HỒN MA TÓM GỌN VÀ TIẾNG CƯỜI KINH DỊ VANG LÊN!")
         
