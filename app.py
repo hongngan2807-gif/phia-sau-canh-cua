@@ -193,7 +193,7 @@ else:
                     st.rerun()
                 else:
                     st.session_state.game_over = True
-                    st.session_state.caught_by_ghost = "Bạn nhập sai mật mã quá lâu và đã bị Ma Sơ Valak phát hiện!"
+                    st.session_state.caught_by_ghost = "Bạn nhập sai mật mã quá lâu và đã bị 3 hồn ma phát hiện!"
                     st.rerun()
 
         # THỬ THÁCH 2
@@ -216,7 +216,7 @@ else:
                     st.rerun()
                 else:
                     st.session_state.game_over = True
-                    st.session_state.caught_by_ghost = "Tính toán sai! Tiếng động của bạn đã thu hút Ma Hề Pennywise tóm gọn."
+                    st.session_state.caught_by_ghost = "Tính toán sai! Tiếng động của bạn đã thu hút 3 hồn ma tóm gọn."
                     st.rerun()
 
         # THỬ THÁCH 3
