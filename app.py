@@ -67,18 +67,13 @@ if 'won' not in st.session_state:
 if 'caught_by_ghost' not in st.session_state:
     st.session_state.caught_by_ghost = ""
 
-# --- PHÁT NHẠC NỀN KINH DỊ (Sử dụng link âm thanh trực tuyến ma mị) ---
-# Nhạc nền hồi hộp không lời
-st.markdown("""
-    <audio autoplay loop hidden>
-        <source src="https://actions.google.com/sounds/v1/ambiences/creepy_wind.ogg" type="audio/ogg">
-        Trình duyệt của bạn không hỗ trợ thẻ audio.
-    </audio>
-""", unsafe_allow_html=True)
-
 # --- TIÊU ĐỀ CHÍNH ---
 st.title("🕯️ PHÍA SAU CÁNH CỬA 🕯️")
 st.caption("✍️ Tác giả: Quốc Cường, Nguyệt Hồng và Hà My | Trò chơi dành cho trẻ em trên 12 tuổi")
+
+# --- TRÌNH PHÁT NHẠC NỀN TRỰC QUAN (GIÚP KHÔNG BỊ TRÌNH DUYỆT CHẶN) ---
+st.markdown("🔊 **Bật nhạc nền kinh dị để tăng trải nghiệm rùng rợn:**")
+st.audio("https://actions.google.com/sounds/v1/ambiences/creepy_wind.ogg", format="audio/ogg", autoplay=True)
 
 st.divider()
 
@@ -88,7 +83,7 @@ if not st.session_state.game_started:
     st.markdown("""
     <div class="info-box">
     Bạn bị nhốt trong phòng làm việc u ám của một Thám tử tư nổi tiếng. Căn phòng ngập tràn bầu không khí lạnh lẽo và oán khí của 3 linh hồn quỷ quái đang lảng vảng xung quanh. Để chứng minh khả năng phá án và mở cửa sinh tồn ra ngoài, bạn phải vượt qua <b>3 thử thách sinh tử</b> để thu thập chìa khóa trốn thoát.<br><br>
-    <b>⚠️ CẢNH BÁO:</b> Bạn chỉ có đúng <b>3 PHÚT (180 giây)</b>! Nếu hết thời gian hoặc bất cẩn trả lời sai bị hồn ma bắt gặp, bạn sẽ thua cuộc ngay lập tức với tiếng cười ma mị vang lên!
+    <b>⚠️ CẢNH BÁO:</b> Bạn chỉ có đúng <b>3 PHÚT (180 giây)</b>! Nếu hết thời gian hoặc bất cẩn trả lời sai bị hồn ma bắt gặp, bạn sẽ thua cuộc ngay lập tức!
     </div>
     """, unsafe_allow_html=True)
 
@@ -135,18 +130,13 @@ else:
         st.session_state.game_over = True
         st.session_state.caught_by_ghost = "Hết giờ! Bạn đã bị Tân Nương Đỏ bắt giữ trong bóng tối."
 
-    # --- KẾT QUẢ THUA CUỘC (BỊ MA BẮT + TIẾNG CƯỜI MA MỊ) ---
+    # --- KẾT QUẢ THUA CUỘC ---
     if st.session_state.game_over:
-        # Phát âm thanh tiếng cười ma mị / hù dọa khi thua
-        st.markdown("""
-            <audio autoplay>
-                <source src="https://actions.google.com/sounds/v1/creatures/evil_laugh.ogg" type="audio/ogg">
-            </audio>
-        """, unsafe_allow_html=True)
+        # Phát âm thanh tiếng cười kinh dị khi thua
+        st.audio("https://actions.google.com/sounds/v1/creatures/evil_laugh.ogg", format="audio/ogg", autoplay=True)
 
         st.error("💀 THUA CUỘC! BẠN ĐÃ BỊ HỒN MA TÓM GỌN VÀ TIẾNG CƯỜI KINH DỊ VANG LÊN!")
         
-        # Hiển thị 3 hồn ma hù dọa
         col_g1, col_g2, col_g3 = st.columns(3)
         with col_g1:
             try: st.image("ghost1.jpg", caption="Tân Nương Đỏ", use_column_width=True)
@@ -177,7 +167,7 @@ else:
             st.session_state.won = False
             st.rerun()
 
-    # --- CÁC THỬ THÁCH GIẢI ĐỐ (CÒN 3 THỬ THÁCH) ---
+    # --- CÁC THỬ THÁCH GIẢI ĐỐ (3 THỬ THÁCH) ---
     else:
         st.write(f"👤 Nhân vật nhập vai: **{st.session_state.character}**")
         st.divider()
@@ -205,7 +195,7 @@ else:
                     st.session_state.caught_by_ghost = "Bạn nhập sai mật mã quá lâu và đã bị Ma Sơ Valak phát hiện!"
                     st.rerun()
 
-        # THỬ THÁCH 2 
+        # THỬ THÁCH 2
         elif st.session_state.step == 2:
             st.subheader("🧩 Thử Thách 2: Mật Mã Số Học Qua Hình Vẽ")
             st.markdown("""
@@ -228,7 +218,7 @@ else:
                     st.session_state.caught_by_ghost = "Tính toán sai! Tiếng động của bạn đã thu hút Ma Hề Pennywise tóm gọn."
                     st.rerun()
 
-        # THỬ THÁCH 3 
+        # THỬ THÁCH 3
         elif st.session_state.step == 3:
             st.subheader("🚪 Thử Thách 3: Mật Mã Cửa Chính")
             st.markdown("""
