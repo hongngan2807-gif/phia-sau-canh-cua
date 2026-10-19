@@ -193,7 +193,7 @@ else:
                     st.rerun()
                 else:
                     st.session_state.game_over = True
-                    st.session_state.caught_by_ghost = "Bạn nhập sai mật mã quá lâu và đã bị 3 hồn ma phát hiện!"
+                    st.session_state.caught_by_ghost = "Bạn nhập sai mật mã và đã bị 3 hồn ma phát hiện!"
                     st.rerun()
 
         # THỬ THÁCH 2
