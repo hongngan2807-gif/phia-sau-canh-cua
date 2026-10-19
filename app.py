@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- TÙY CHỈNH GIAO DIỆN KINH DỊ & HẦM NGỤC (LẤY CẢM HỨNG TỪ ẢNH GIAO DIỆN) ---
+# --- TÙY CHỈNH GIAO DIỆN KINH DỊ & HẦM NGỤC ---
 st.markdown("""
     <style>
     .stApp {
@@ -67,6 +67,15 @@ if 'won' not in st.session_state:
 if 'caught_by_ghost' not in st.session_state:
     st.session_state.caught_by_ghost = ""
 
+# --- PHÁT NHẠC NỀN KINH DỊ (Sử dụng link âm thanh trực tuyến ma mị) ---
+# Nhạc nền hồi hộp không lời
+st.markdown("""
+    <audio autoplay loop hidden>
+        <source src="https://actions.google.com/sounds/v1/ambiences/creepy_wind.ogg" type="audio/ogg">
+        Trình duyệt của bạn không hỗ trợ thẻ audio.
+    </audio>
+""", unsafe_allow_html=True)
+
 # --- TIÊU ĐỀ CHÍNH ---
 st.title("🕯️ PHÍA SAU CÁNH CỬA 🕯️")
 st.caption("✍️ Tác giả: Quốc Cường, Nguyệt Hồng và Hà My | Trò chơi dành cho trẻ em trên 12 tuổi")
@@ -78,51 +87,43 @@ if not st.session_state.game_started:
     st.subheader("🕵️ CỐT TRUYỆN HỒI HỘP")
     st.markdown("""
     <div class="info-box">
-    Bạn bị nhốt trong phòng làm việc u ám của một Thám tử tư nổi tiếng. Căn phòng ngập tràn bầu không khí lạnh lẽo và oán khí của 3 linh hồn quỷ quái đang lảng vảng xung quanh. Để chứng minh khả năng phá án và mở cửa sinh tồn ra ngoài, bạn phải vượt qua <b>4 thử thách</b> để thu thập chìa khóa trốn thoát.<br><br>
-    <b>⚠️ CẢNH BÁO:</b> Bạn chỉ có đúng <b>3 PHÚT (180 giây)</b>! Nếu hết thời gian hoặc bất cẩn bị 1 trong 3 hồn ma bắt gặp, bạn sẽ thua cuộc ngay lập tức!
+    Bạn bị nhốt trong phòng làm việc u ám của một Thám tử tư nổi tiếng. Căn phòng ngập tràn bầu không khí lạnh lẽo và oán khí của 3 linh hồn quỷ quái đang lảng vảng xung quanh. Để chứng minh khả năng phá án và mở cửa sinh tồn ra ngoài, bạn phải vượt qua <b>3 thử thách sinh tử</b> để thu thập chìa khóa trốn thoát.<br><br>
+    <b>⚠️ CẢNH BÁO:</b> Bạn chỉ có đúng <b>3 PHÚT (180 giây)</b>! Nếu hết thời gian hoặc bất cẩn trả lời sai bị hồn ma bắt gặp, bạn sẽ thua cuộc ngay lập tức với tiếng cười ma mị vang lên!
     </div>
     """, unsafe_allow_html=True)
 
     st.subheader("🎭 Lựa Chọn Nhân Vật Yêu Thích Của Bạn")
-    
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        try:
-            st.image("char1.jpg", caption="Dee Dee (Gián Cam)", use_column_width=True)
-        except:
-            st.write("**Dee Dee (Gián Cam)**")
+        try: st.image("char1.jpg", caption="Dee Dee (Gián Xanh)", use_column_width=True)
+        except: st.write("**Dee Dee (Gián Cam)**")
         if st.button("Chọn Dee Dee"):
-            st.session_state.character = "Dee Dee (Gián Cam)"
+            st.session_state.character = "Dee Dee (Gián Xanh)"
             st.session_state.game_started = True
             st.session_state.start_time = time.time()
             st.rerun()
 
     with col2:
-        try:
-            st.image("char2.jpg", caption="Joey (Gián Tím)", use_column_width=True)
-        except:
-            st.write("**Joey (Gián Tím)**")
+        try: st.image("char2.jpg", caption="Joey (Gián Cam)", use_column_width=True)
+        except: st.write("**Joey (Gián Tím)**")
         if st.button("Chọn Joey"):
-            st.session_state.character = "Joey (Gián Tím)"
+            st.session_state.character = "Joey (Gián Cam)"
             st.session_state.game_started = True
             st.session_state.start_time = time.time()
             st.rerun()
 
     with col3:
-        try:
-            st.image("char3.jpg", caption="Marky (Gián Xanh)", use_column_width=True)
-        except:
-            st.write("**Marky (Gián Xanh)**")
+        try: st.image("char3.jpg", caption="Marky (Gián Tím)", use_column_width=True)
+        except: st.write("**Marky (Gián Xanh)**")
         if st.button("Chọn Marky"):
-            st.session_state.character = "Marky (Gián Xanh)"
+            st.session_state.character = "Marky (Gián Tím)"
             st.session_state.game_started = True
             st.session_state.start_time = time.time()
             st.rerun()
 
 # --- MÀN HÌNH TRẢI NGHIỆM GAME ---
 else:
-    # Tính thời gian (180 giây = 3 phút)
     elapsed_time = time.time() - st.session_state.start_time
     remaining_time = max(0, int(180 - elapsed_time))
 
@@ -134,11 +135,18 @@ else:
         st.session_state.game_over = True
         st.session_state.caught_by_ghost = "Hết giờ! Bạn đã bị Tân Nương Đỏ bắt giữ trong bóng tối."
 
-    # --- KẾT QUẢ THUA CUỘC (BỊ MA BẮT) ---
+    # --- KẾT QUẢ THUA CUỘC (BỊ MA BẮT + TIẾNG CƯỜI MA MỊ) ---
     if st.session_state.game_over:
-        st.error("💀 THUA CUỘC! BẠN ĐÃ BỊ HỒN MA Tóm GỌN!")
+        # Phát âm thanh tiếng cười ma mị / hù dọa khi thua
+        st.markdown("""
+            <audio autoplay>
+                <source src="https://actions.google.com/sounds/v1/creatures/evil_laugh.ogg" type="audio/ogg">
+            </audio>
+        """, unsafe_allow_html=True)
+
+        st.error("💀 THUA CUỘC! BẠN ĐÃ BỊ HỒN MA TÓM GỌN VÀ TIẾNG CƯỜI KINH DỊ VANG LÊN!")
         
-        # Hiển thị ngẫu nhiên 1 trong 3 hồn ma hù dọa
+        # Hiển thị 3 hồn ma hù dọa
         col_g1, col_g2, col_g3 = st.columns(3)
         with col_g1:
             try: st.image("ghost1.jpg", caption="Tân Nương Đỏ", use_column_width=True)
@@ -169,7 +177,7 @@ else:
             st.session_state.won = False
             st.rerun()
 
-    # --- CÁC THỬ THÁCH GIẢI ĐỐ ---
+    # --- CÁC THỬ THÁCH GIẢI ĐỐ (CÒN 3 THỬ THÁCH) ---
     else:
         st.write(f"👤 Nhân vật nhập vai: **{st.session_state.character}**")
         st.divider()
@@ -197,7 +205,7 @@ else:
                     st.session_state.caught_by_ghost = "Bạn nhập sai mật mã quá lâu và đã bị Ma Sơ Valak phát hiện!"
                     st.rerun()
 
-        # THỬ THÁCH 2
+        # THỬ THÁCH 2 
         elif st.session_state.step == 2:
             st.subheader("🧩 Thử Thách 2: Mật Mã Số Học Qua Hình Vẽ")
             st.markdown("""
@@ -212,7 +220,7 @@ else:
             ans2 = st.text_input("Nhập kết quả phép tính (Tẩu thuốc - Kính lúp):")
             if st.button("Xác Nhận Đáp Án"):
                 if ans2.strip() == "4":
-                    st.success("Chính xác! Bạn nhận được **Chiếc chìa khóa nhỏ** mở hộp mã số.")
+                    st.success("Chính xác! Bạn nhận được **Chìa khóa mở cửa cuối cùng**.")
                     st.session_state.step = 3
                     st.rerun()
                 else:
@@ -220,28 +228,9 @@ else:
                     st.session_state.caught_by_ghost = "Tính toán sai! Tiếng động của bạn đã thu hút Ma Hề Pennywise tóm gọn."
                     st.rerun()
 
-        # THỬ THÁCH 3
+        # THỬ THÁCH 3 
         elif st.session_state.step == 3:
-            st.subheader("🧭 Thử Thách 3: La Bàn Và Phương Hướng")
-            st.markdown("""
-            **Manh mối:** Mở hộp ra, bạn thấy la bàn cùng giấy chỉ dẫn:  
-            *"Từ giữa phòng, đi thẳng về hướng Bắc 3 bước, rẽ trái đi về hướng Tây 2 bước, rồi tiến về hướng Nam 1 bước. Bạn đang đứng cạnh vật gì?"*
-            """)
-            
-            ans3 = st.radio("Lựa chọn vật thể chính xác tại vị trí đó:", ["Cái Bàn", "Chậu Cây", "Kệ Sách", "Chiếc Ghế"])
-            if st.button("Kiểm Tra Vị Trí"):
-                if ans3 in ["Chậu Cây", "Kệ Sách"]:
-                    st.success("Đúng vị trí! Bạn tìm thấy **Mật mã cuối cùng** khắc sau chậu cây.")
-                    st.session_state.step = 4
-                    st.rerun()
-                else:
-                    st.session_state.game_over = True
-                    st.session_state.caught_by_ghost = "Đi lạc hướng! Tân Nương Đỏ đã chặn đường và bắt giữ bạn."
-                    st.rerun()
-
-        # THỬ THÁCH 4
-        elif st.session_state.step == 4:
-            st.subheader("🚪 Thử Thách 4: Mật Mã Cửa Chính")
+            st.subheader("🚪 Thử Thách 3: Mật Mã Cửa Chính")
             st.markdown("""
             **Manh mối:** Cửa chính yêu cầu nhập từ khóa gồm 6 chữ cái tiếng Anh liên quan đến công việc thám tử, viết đảo ngược:  
             *“Hãy đọc ngược từ phải sang trái dòng chữ sau: **R-E-T-C-E-S**”*
