@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+import os
 
 # --- CẤU HÌNH TRANG STREAMLIT ---
 st.set_page_config(
@@ -67,13 +68,13 @@ if 'won' not in st.session_state:
 if 'caught_by_ghost' not in st.session_state:
     st.session_state.caught_by_ghost = ""
 
+# --- TỰ ĐỘNG PHÁT NHẠC NỀN KINH DỊ NGAY KHI VÀO GAME ---
+if os.path.exists("horror.mp3"):
+    st.audio("horror.mp3", format="audio/mp3", autoplay=True)
+
 # --- TIÊU ĐỀ CHÍNH ---
 st.title("🕯️ PHÍA SAU CÁNH CỬA 🕯️")
 st.caption("✍️ Tác giả: Quốc Cường, Nguyệt Hồng và Hà My | Trò chơi dành cho trẻ em trên 12 tuổi")
-
-# --- TRÌNH PHÁT NHẠC NỀN TRỰC QUAN (LINK MỚI ỔN ĐỊNH) ---
-st.markdown("🔊 **Bật nhạc nền kinh dị để tăng trải nghiệm rùng rợn:**")
-st.audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c7a73167.mp3?filename=horror-background-atmosphere-156462.mp3", format="audio/mp3")
 
 st.divider()
 
@@ -83,7 +84,7 @@ if not st.session_state.game_started:
     st.markdown("""
     <div class="info-box">
     Bạn bị nhốt trong phòng làm việc u ám của một Thám tử tư nổi tiếng. Căn phòng ngập tràn bầu không khí lạnh lẽo và oán khí của 3 linh hồn quỷ quái đang lảng vảng xung quanh. Để chứng minh khả năng phá án và mở cửa sinh tồn ra ngoài, bạn phải vượt qua <b>3 thử thách sinh tử</b> để thu thập chìa khóa trốn thoát.<br><br>
-    <b>⚠️ CẢNH BÁO:</b> Bạn chỉ có đúng <b>3 PHÚT (180 giây)</b>! Nếu hết thời gian hoặc bất cẩn trả lời sai bị hồn ma bắt gặp, bạn sẽ thua cuộc ngay lập tức!
+    <b>⚠️ CẢNH BÁO:</b> Bạn chỉ có đúng <b>3 PHÚT (180 giây)</b>! Nếu hết thời gian hoặc bất cẩn trả lời sai bị hồn ma bắt gặp, tiếng cười ma mị sẽ vang lên và bạn thua cuộc ngay lập tức!
     </div>
     """, unsafe_allow_html=True)
 
@@ -130,10 +131,10 @@ else:
         st.session_state.game_over = True
         st.session_state.caught_by_ghost = "Hết giờ! Bạn đã bị Tân Nương Đỏ bắt giữ trong bóng tối."
 
-    # --- KẾT QUẢ THUA CUỘC ---
+    # --- KẾT QUẢ THUA CUỘC (PHÁT TIẾNG CƯỜI MA MỊ + 3 HỒN MA) ---
     if st.session_state.game_over:
-        # Phát âm thanh tiếng cười kinh dị khi thua
-        st.audio("https://cdn.pixabay.com/download/audio/2021/08/04/audio_12d46e34c2.mp3?filename=evil-laugh-81143.mp3", format="audio/mp3")
+        if os.path.exists("laugh.mp3"):
+            st.audio("laugh.mp3", format="audio/mp3", autoplay=True)
 
         st.error("💀 THUA CUỘC! BẠN ĐÃ BỊ HỒN MA TÓM GỌN VÀ TIẾNG CƯỜI KINH DỊ VANG LÊN!")
         
